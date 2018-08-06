@@ -1,0 +1,73 @@
+/* Original Problem Found at https://practice.geeksforgeeks.org/problems/missing-number-in-array/0
+Given an array of size n-1 and given that there are numbers from 1 to n with one missing, the missing number is to be found.
+
+Input:
+
+The first line of input contains an integer T denoting the number of test cases.
+The first line of each test case is N.
+The second line of each test case contains N-1 input C[i],numbers in array.
+
+Output:
+
+Print the missing number in array.
+Constraints:
+
+1 ≤ T ≤ 200
+1 ≤ N ≤ 1000
+1 ≤ C[i] ≤ 1000
+*/
+
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class NumberArrays {
+	public static void main (String[] args) {
+		 Scanner sc = new Scanner(System.in);
+     process(sc);
+	}
+	
+  //Pre: Takes in a scanner of a file in the correct format
+  //Post: Prints out the missing numbers.
+	private static void process(Scanner sc){
+	  int num = Integer.parseInt(sc.nextLine());
+		while(sc.hasNext()){
+		    int numberCount = Integer.parseInt(sc.nextLine());
+		    String numberArray = sc.nextLine();
+		    int[] numbers = covertString(numberCount, numberArray);
+		    int number = findMissing(numbers);
+		    System.out.println(number);
+		}
+	}
+  
+  //Pre: Takes an array of numbers
+  //Post: Returns the missing number
+	private static int findMissing(int[] numbers) {
+        Arrays.sort(numbers);
+        if (numbers.length ==1) {
+	        if(numbers[0] == 1) {
+	            return 2;
+            } else {
+                return 1;
+            }
+	    }
+	    for(int i = 0; i<numbers.length;i++){
+	        if(i+1 != numbers[i]){
+	            return i+1;
+	        } 
+	    }
+	    return numbers.length+1;
+	}
+	
+  Pre: Takes a string of numbers and an integer of how many numbers plus the missing one are in the string
+  Post: Returns an array of the numbers.
+	private static int[] covertString(int num, String numbers){
+	    String strings[] = numbers.split(" ");
+	    int nums[] = new int[num-1];
+	    for (int i = 0; i < nums.length; i++){
+            nums[i] = Integer.parseInt(strings[i]);
+        }
+        return nums;
+	}
+}
