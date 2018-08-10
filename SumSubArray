@@ -1,0 +1,27 @@
+/* Given an unsorted array of non-negative integers, find a continuous sub-array which adds to a given number. Print out the indexes
+Original problem found @ https://practice.geeksforgeeks.org/problems/subarray-with-given-sum/0
+*/
+import java.util.*;
+public class ArraySum {
+	
+	//Pre: It takes the sum in question and an integer array
+  //Post: Prints out starting and ending indexes of the sub array that sums to the given integer or
+  //prints out -1 if sub array doesn't exist
+	private static void getIndexes(int sum, int[] arr){
+		String result = "-1";
+		for(int i =0;i<arr.length;i++){
+			int total =0;
+			for(int j=i;j<arr.length;j++){
+				total += arr[j];
+				if(total==sum){
+					result =i+" "+j;
+					break;
+				}
+			}
+			if(total==sum){
+				break;
+			}
+		}
+		System.out.println(result);
+	}
+}
