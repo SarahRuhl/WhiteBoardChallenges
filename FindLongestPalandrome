@@ -1,0 +1,67 @@
+/*
+Original problem found @ https://practice.geeksforgeeks.org/problems/longest-palindrome-in-a-string/0
+Given a string S, find the longest palindromic substring in S.
+
+Substring of string S:
+
+S[ i . . . . j ] where 0 ≤ i ≤ j < len(S)
+
+Palindrome string:
+
+A string which reads the same backwards. More formally, S is palindrome if reverse(S) = S.
+
+Incase of conflict, return the substring which occurs first ( with the least starting index ).
+*/
+/*
+Note that I had already completed a whiteboard problem that asked me to find all the palindromes in a string and it is on my github.
+Rather that reinvent the wheel, I reused that code and then found the longers string in the resulting list
+*/
+package pallindromeWhiteBoard;
+import java.util.*;
+
+public class Pallandrome {
+	
+	//Pre: Takes a string
+	//Post: Returns an ArrayList of all the palindromes contained in the list
+	public ArrayList<String> getAllPallandromes(String pallandrome){
+		ArrayList<String> pals = new ArrayList<String>();
+		for(int i = 0;i<=pallandrome.length();i++){
+			for(int j =i;j<=pallandrome.length();j++){
+				String sub = pallandrome.substring(i, j);
+				if(checkPallandrome(sub)&&!pals.contains(sub)){
+					pals.add(sub);
+				}
+			}
+		}
+		return pals;
+	}
+	
+	//Pre: Takes a string
+	//Post: Returns a boolean, true if the string is a palindrome.
+	public static boolean checkPallandrome(String sub){
+		if(sub.isEmpty()){
+			return false;
+		}
+		int j = sub.length()-1;
+		for(int i =0;i<(sub.length()+1)/2;i++){
+			if(Character.toLowerCase(sub.charAt(i)) != Character.toLowerCase(sub.charAt(j))){
+				return false;
+			}
+			j--;
+		}
+		return true;
+	}
+	
+	//Pre: Takes a string as a paramater
+	//Post: Finds the longest pallindrome in given string
+	public String getLongestPal(String pal){
+		String longest ="";
+		ArrayList<String> pals = this.getAllPallandromes(pal);
+		for(String p : pals){
+			if(p.length() > longest.length()){
+				longest = p;
+			}
+		}
+		return longest;
+	}
+}
