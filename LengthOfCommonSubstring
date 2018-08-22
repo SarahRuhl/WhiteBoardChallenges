@@ -1,0 +1,43 @@
+/*
+Problem: Given two sequences, find the length of longest subsequence present in both of them.
+Original Problem @ https://practice.geeksforgeeks.org/problems/longest-common-subsequence/0
+*/
+
+import java.util.*;
+public class Substrings {
+	
+	//Pre: Takes two strings
+	//Post: Returns the longest common substring
+	public static String getLongestCommon(String str1,String str2){
+		String temp ="";
+		str1=str1.toLowerCase();
+		str2=str2.toLowerCase();
+		HashMap<Character,Integer> store = new HashMap<Character,Integer>();
+		for(int i = 0;i<str1.length();i++){
+			char tem = str1.charAt(i);
+			if(store.containsKey(tem)){
+				int t = store.get(tem);
+				t++;
+				store.put(tem, t);
+			} else {
+				store.put(tem, 1);
+			}
+		}
+		for(int i =0; i<str2.length();i++){
+			char tem =str2.charAt(i);
+			if(store.containsKey(tem)&&store.get(tem)>0){
+				int t = store.get(tem);
+				t--;
+				store.put(tem, t);
+				temp+=tem;
+			}
+		}	
+		return temp;
+	}
+	
+	//Pre: Takes two strings
+	//Post: Returns number of shared letters
+	public static int getNumCommon(String str1,String str2){
+		return getLongestCommon(str1,str2).length();
+	}
+}
